@@ -50,4 +50,4 @@ class Booking(models.Model):
     booked_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "booked on: " + str(self.booked_on)
+        return f"{str(self.start_day)} : {self.end_day}"

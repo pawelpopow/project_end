@@ -1,0 +1,54 @@
+{% extends 'base/base.html'%}
+{% block content%}
+<div class="row">
+    <div class="col l6 offset-l3 m8 offset-m2 s12">
+        <div class="card-panel">
+            {% if message%}
+            <p class="green-text">{{message}}</p>
+            {%endif%}
+            <h4 class="center" style="font-family:Stylish">Contact Us...</h4>
+            <form action="/booking/contact-us/" method="POST">{% csrf_token %}
+                <div class="input-field">
+                    <label for="username">Username</label>
+                    <input type="text" name="name" id="username">
+                </div>
+                <div class="input-field">
+                    <label for="username">E-mail</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                <label>Gender</label>
+                <div class="input-field">
+                    <input type="radio" name="gender" value="male"> Male<br>
+                    <input type="radio" name="gender" value="female"> Female<br>
+                    <input type="radio" name="gender" value="other"> Other
+                </div>
+
+                <div class="input-field">
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" id="phone">
+                </div>
+
+                <div class="input-field">
+                    <span>Profile pic</span>
+                    <input type="file" name="profile_pic"><br><br>
+                </div>
+
+                <div class="input-field">
+                    <label>Address</label>
+                    <textarea id="textarea2" class="materialize-textarea" data-length="200" name="address"></textarea>
+                </div>
+                <br>
+
+
+                <div class="input-field">
+                    <label for="textarea1">Message</label>
+                    <textarea id="textarea1" class="materialize-textarea" name="message" data-length="1000"></textarea>
+                </div>
+                <div class="center">
+                    <input type="submit" value="submit" name="submit" class="btn red lighten-2">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
