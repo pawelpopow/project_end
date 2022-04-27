@@ -81,18 +81,22 @@ def book_now(request, name_yacht):
 
 def book_confirm(request):
     rental = request.session['rental']
+    start_date = request.session['start_date']
+    end_date = request.session['end_date']
     username = request.session['username']
     user = User.objects.get(username=username)
     rental = Rental.objects.get(id=rental)
     amount = request.session['bill']
-    data = Booking(rental=rental, amount=amount, user=user)
+    start_date = datetime.datetime.strptime(start_date, "%d/%b/%Y").date()
+    end_date = datetime.datetime.strptime(end_date, "%d/%b/%Y").date()
+    data = Booking(rental=rental, start_day=start_date, end_day=end_date, amount=amount, user=user)
     data.save()
     rental.is_available = False
     rental.save()
     del request.session['start_date']
     del request.session['end_date']
     del request.session['bill']
-    del request.session['name_yacht']
+    del request.session['rental']
     messages.info(request, "Yacht has been successfully booked")
     return redirect('booking:user-dashboard')
 
