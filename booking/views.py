@@ -94,7 +94,7 @@ def book_confirm(request):
     del request.session['bill']
     del request.session['name_yacht']
     messages.info(request, "Yacht has been successfully booked")
-    return redirect('booking:user_dashboard')
+    return redirect('booking:user-dashboard')
 
 
 def cancel_yacht(request, booked_on):
