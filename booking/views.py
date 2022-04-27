@@ -58,14 +58,14 @@ def book(request):
         return redirect('booking:index')
 
 
-def book_now(request, id):
+def book_now(request, name_yacht):
     if request.session.get("username", None) and request.session.get("type", None) == 'user':
         if request.session.get("no_of_days", 1):
             no_of_days = request.session['no_of_days']
             start_date = request.session['start_date']
             end_date = request.session['end_date']
             request.session['rental'] = id
-            data = Rental.objects.get(rental=id)
+            data = Rental.objects.get(id=name_yacht)
             bill = data.price * int(no_of_days)
             request.session['bill'] = bill
             user = data.manager.username
@@ -83,7 +83,7 @@ def book_confirm(request):
     rental = request.session['rental']
     username = request.session['username']
     user = User.objects.get(username=username)
-    rental = Rental.objects.get(rental=rental)
+    rental = Rental.objects.get(id=rental)
     amount = request.session['bill']
     data = Booking(rental=rental, amount=amount, user=user)
     data.save()
@@ -94,7 +94,7 @@ def book_confirm(request):
     del request.session['bill']
     del request.session['name_yacht']
     messages.info(request, "Yacht has been successfully booked")
-    return redirect('user_dashboard')
+    return redirect('booking:user_dashboard')
 
 
 def cancel_yacht(request, booked_on):

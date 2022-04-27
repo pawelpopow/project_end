@@ -6,7 +6,7 @@ from django.contrib import messages
 
 def dashboard(request):
     if not request.session.get('username', None):
-        return redirect('manager_login')
+        return redirect('login:manager-login')
     if request.session.get('username', None) and request.session.get('type', None) == 'user':
         return redirect('user_dashboard')
     if request.session.get('username', None) and request.session.get('type', None) == 'manager':
@@ -23,9 +23,9 @@ def dashboard(request):
 
 def add_rental(request):
     if not request.session.get('username', None):
-        return redirect('manager_login')
+        return redirect('login:user-login')
     if request.session.get('username', None) and request.session.get('type', None) == 'user':
-        return redirect('user_dashboard')
+        return redirect('customer:user_dashboard')
     if request.method == "GET":
         return render(request, "manager_dash/add-rental.html", {})
     else:
@@ -76,6 +76,6 @@ def update_rental(request, name_yacht):
             User.no_of_days_advance = no_of_days_advance
             User.save()
             messages.info(request, "Rental Data Updated Successfully")
-            return redirect('rentel:dashboard1')
+            return redirect('rentel:dashboard')
         else:
             return redirect('rentel:update-rental' + rental.name_yacht, {"rental": rental})

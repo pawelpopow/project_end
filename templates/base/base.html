@@ -50,12 +50,12 @@
                 <div class="collapsible-body">
                     <ul>
                         {% if not request.session.username %}
-                        <li><a href="/user/login" class="blue-text"><i
+                        <li><a href="" class="blue-text"><i
                                 class="material-icons left red-text text-lighten-2">person</i>User</a></li>
                         <li class="divider" tabindex="-1"></li>
                         {% else %}
                         {% if request.session.type == 'customer' %}
-                        <li><a href="/user/dashboard"><i
+                        <li><a href=""><i
                                 class="material-icons left red-text text-lighten-2">dashboard</i> Dashboard</a></li>
                         {% endif %}
                         <li><a href="/login/logout"><i class="material-icons left red-text text-lighten-2">exit_to_app</i>
@@ -68,13 +68,13 @@
     </li>
 </ul>
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="/user/login" class="blue-text"><i class="material-icons left red-text text-lighten-2">person</i>
+    <li><a href="/login/user" class="blue-text"><i class="material-icons left red-text text-lighten-2">person</i>
         User</a></li>
     <li class="divider" tabindex="-1"></li>
 </ul>
 <ul id='dropdown2' class='dropdown-content'>
     {% if request.session.type == 'customer' %}
-    <li><a href="/user/dashboard"> <i class="material-icons left red-text text-lighten-2">dashboard</i>Dashboard</a>
+    <li><a href="/login/user"> <i class="material-icons left red-text text-lighten-2">dashboard</i>Dashboard</a>
     </li>
     {% endif %}
     <li><a href="/login/logout"> <i class="material-icons left red-text text-lighten-2">exit_to_app</i>Logout</a></li>
@@ -96,7 +96,7 @@
                     <li><a class="grey-text text-lighten-3" href="/booking/contact-us">Contact Us</a></li>
                     {% if not request.session.username %}
                     {% if request.session.type == 'customer' %}
-                    <li><a class="grey-text text-lighten-3" href="/user/login">User</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/login/user">User</a></li>
                     {% endif %}
                     {% else %}
                     <li><a class="grey-text text-lighten-3" href="/login/logout">Logout</a></li>

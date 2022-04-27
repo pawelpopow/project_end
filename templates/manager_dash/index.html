@@ -34,7 +34,7 @@
     </div>
     <div class="col l8 offset-l2 m10 offset-m1 s12">
         <div class="center">
-            <a class="btn green lighten-2" href="/login/add-rental/new">Add Rental</a>
+            <a class="btn green lighten-2" href="/rentel/new/">Add Rental</a>
         </div>
         <h3 style="font-family: 'Fredoka One', cursive;" class="brown-text">Rental Status</h3>
         <div id="message">
@@ -56,11 +56,11 @@
             <tbody>
             {% for rental in rental_data%}
             <tr>
-                <td>{{rental.rental_no}}</td>
+                <td>{{rental.rental}}</td>
                 <td>{{rental.rental_type}}</td>
                 <td>{{rental.price}}</td>
                 {% with data=rental.booking_set.all.0 %}
-                <td><a href="/login/dashboard/details/{{data.user_id.id}}/{{data.id}}">{{data.user.username}}</a></td>
+                <td><a href="/login/user">{{data.user.username}}</a></td>
                 <td>{{data.booked_on}}
                 </th>
                 <td>
@@ -70,15 +70,15 @@
                     {{data.start_day}} to {{data.end_day}}
                     {% endif %}
                 </td>
-                <td><a class="btn blue" href="/user/add-rental/update/{{rental.rental}}">Edit</a></td>
-                <td><a class="btn red cancel-btn" href="" id="{{rental.id}}">Delete</a></td>
+                <td><a class="btn blue" href="/rentel/update/<int:name_yacht>/">Edit</a></td>
+                <td><a class="btn red cancel-btn" href="/booking/delete-yacht/<str:id>" id="{{rental.id}}">Delete</a></td>
                 {% endwith %}
             </tr>
             {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <p>Sorry no rental has been added by you, please add a rental now <a href="/user/add-rental/new">Here</a></p>
+        <p>Sorry no rental has been added by you, please add a rental now <a href="/login/user/">Here</a></p>
         {% endif %}
     </div>
 </div>
