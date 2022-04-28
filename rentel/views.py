@@ -6,26 +6,27 @@ from django.contrib import messages
 
 def dashboard(request):
     if not request.session.get('username', None):
-        return redirect('login:manager-login')
+        return redirect('rentel:manager-dashboard')
     if request.session.get('username', None) and request.session.get('type', None) == 'user':
-        return redirect('user_dashboard')
+        return redirect('customer:user-dashboard')
     if request.session.get('username', None) and request.session.get('type', None) == 'manager':
         username = request.session['username']
-        data = User.objects.get(username=username)
+        data = User.objects.get(id=username)
         data1 = data.rental_set.all()
         booked = data1.filter(is_available=False).count()
         print(booked)
         return render(request, "manager_dash/index.html",
                       {"data1": data1, "manager": data, "booked": booked})
     else:
-        return redirect("rentel:manager-dashboard")
+        return redirect("login:user-login")
+        # return redirect('rentel:manager-dashboard')
 
 
 def add_rental(request):
     if not request.session.get('username', None):
         return redirect('login:user-login')
     if request.session.get('username', None) and request.session.get('type', None) == 'user':
-        return redirect('customer:user_dashboard')
+        return redirect('customer:user-dashboard')
     if request.method == "GET":
         return render(request, "manager_dash/add-rental.html", {})
     else:

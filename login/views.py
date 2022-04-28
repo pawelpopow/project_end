@@ -175,7 +175,7 @@ def manager_signup(request):
                 redirect('login:manager-signup')
 
     else:
-        redirect('user_signup')
+        redirect('login:user-signup')
     return render(request, 'login/manager_login.html', {})
 
 

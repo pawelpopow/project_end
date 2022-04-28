@@ -18,14 +18,14 @@ def dashboard(request):
         return redirect("customer:user-dashboard")
 
 
-def details(request, id, booking_id):
+def details(request, user, booking_on):
     if not request.session.get('username', None):
         return redirect('manager_login')
     if request.session.get('username', None) and request.session.get('type', None) == 'customer':
         return redirect('customer:user-dashboard')
     try:
-        booking_data = Booking.objects.get(id=booking_id)
-        user = User.objects.get(id=id)
+        booking_data = Booking.objects.get(id=booking_on)
+        user = User.objects.get(id=user)
         return render(request,
                       "user_dash/details.html",
                       {"user": user,

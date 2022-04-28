@@ -84,7 +84,7 @@ def book_confirm(request):
     start_date = request.session['start_date']
     end_date = request.session['end_date']
     username = request.session['username']
-    user = User.objects.get(username=username)
+    user = User.objects.get(id=username)
     rental = Rental.objects.get(id=rental)
     amount = request.session['bill']
     start_date = datetime.datetime.strptime(start_date, "%d/%b/%Y").date()
