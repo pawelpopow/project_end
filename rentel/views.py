@@ -9,9 +9,9 @@ def dashboard(request):
         return redirect('rentel:manager-dashboard')
     if request.session.get('username', None) and request.session.get('type', None) == 'user':
         return redirect('customer:user-dashboard')
-    if request.session.get('username', None) and request.session.get('type', None) == 'manager':
+    if request.session.get('username', None) and request.session.get('type', None) == 'customer':
         username = request.session['username']
-        data = User.objects.get(id=username)
+        data = User.objects.get(username=username)
         data1 = data.rental_set.all()
         booked = data1.filter(is_available=False).count()
         print(booked)
