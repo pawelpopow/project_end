@@ -18,11 +18,10 @@ def contact(request):
         username = request.POST['name']
         gender = request.POST['gender']
         profile_pic = request.POST['profile_pic']
-        phone_number = request.POST['phone_number']
+        phone_number = request.POST['phone']
         address = request.POST['address']
-        state = request.POST['state']
         data = Contact(name=username, gender=gender, profile_pic=profile_pic, phone_number=phone_number,
-                       address=address, state=state)
+                       address=address)
         data.save()
         return render(request, "contact/contact.html", {'message': 'Thank you for contacting us.'})
 
@@ -40,17 +39,13 @@ def book(request):
         print(start_date)
         print(end_date)
         print(Booking.objects.all().values_list('start_day', 'end_day'))
-        start_available_rental_ids = Booking.objects.filter(start_day__gt=start_date, start_day__lt=end_date)
-        print(start_available_rental_ids)
-        end_available_rental_ids = Booking.objects.filter(end_day__gt=start_date, end_day__lt=end_date)
-        available_rental_ids = start_available_rental_ids | end_available_rental_ids
-        print(end_available_rental_ids)
-        b_ids = available_rental_ids.values_list("id")
-        a = Booking.objects.exclude(id__in=b_ids)
-        available_rental_ids = a.values_list("rental", flat=True)
-        print(available_rental_ids)
-        available_rentals = Rental.objects.filter(id__in=available_rental_ids)
+        bookings_starting_within = Booking.objects.filter(start_day__lt=start_date, end_day__gt=start_date)
+        bookings_ending_within = Booking.objects.filter(start_day__lt=end_date, end_day__gt=end_date)
+        bookings_within = bookings_starting_within | bookings_ending_within
+        not_available_rental_ids = bookings_within.values_list('rental__id')
+        available_rentals = Rental.objects.exclude(id__in=not_available_rental_ids)
         request.session['no_of_days'] = no_of_days
+
         return render(request, 'booking/book.html', {'available_rentals': available_rentals})
 
 

@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class Contact(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=64, null=True)
     gender = models.CharField(max_length=20)
     profile_pic = models.ImageField(
         upload_to="image",
