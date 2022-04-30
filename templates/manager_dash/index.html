@@ -56,12 +56,11 @@
             <tbody>
             {% for rental in rental_data%}
             <tr>
-                <td>{{rental.rental}}</td>
-                <td>{{rental.rental_type}}</td>
+                <td>{{rental.name_yacht}}</td>
                 <td>{{rental.price}}</td>
                 {% with data=rental.booking_set.all.0 %}
                 <td><a href="/login/user">{{data.user.username}}</a></td>
-                <td>{{data.booked_on}}
+                <td>{{available_rentals.booked_on}}
                 </th>
                 <td>
                     {% if rental.is_available%}
