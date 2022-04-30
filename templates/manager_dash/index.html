@@ -44,7 +44,6 @@
             <thead class="red lighten-4">
             <tr>
                 <th>Rental</th>
-                <th>Rental Type</th>
                 <th>Price</th>
                 <th>Customer Name</th>
                 <th>Booked On</th>
@@ -69,8 +68,8 @@
                     {{data.start_day}} to {{data.end_day}}
                     {% endif %}
                 </td>
-                <td><a class="btn blue" href="/rentel/update/<int:name_yacht>/">Edit</a></td>
-                <td><a class="btn red cancel-btn" href="/booking/delete-yacht/<str:id>" id="{{rental.id}}">Delete</a></td>
+                <td><a class="btn blue" href="/rentel/update/">Edit</a></td>
+                <td><a class="btn red cancel-btn" href="/booking/delete-yacht/">Delete</a></td>
                 {% endwith %}
             </tr>
             {% endfor %}

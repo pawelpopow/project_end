@@ -16,7 +16,7 @@
             {% endfor %}
             {% endif %}
             <div class="row">
-                <form class="col s12" method="POST" action="/user/add-rental/update/{{rental.name_yacht}}/">{% csrf_token %}
+                <form class="col s12" method="POST" action="/rentel/next/">{% csrf_token %}
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="price">Price</label>
