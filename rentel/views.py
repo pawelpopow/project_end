@@ -19,7 +19,6 @@ def dashboard(request):
                       {"data1": data1, "manager": data, "booked": booked})
     else:
         return redirect("login:user-login")
-        # return redirect('rentel:manager-dashboard')
 
 
 def add_rental(request):
