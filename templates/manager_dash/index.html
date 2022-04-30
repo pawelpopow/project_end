@@ -68,8 +68,8 @@
                     {{data.start_day}} to {{data.end_day}}
                     {% endif %}
                 </td>
-                <td><a class="btn blue" href="/rentel/update/">Edit</a></td>
-                <td><a class="btn red cancel-btn" href="/booking/delete-yacht/">Delete</a></td>
+                <td><a class="btn blue" href="/rentel/update/{{rental.id}}">Edit</a></td>
+                <td><a class="btn red cancel-btn" href="" id="{{rental.id}}">Delete</a></td>
                 {% endwith %}
             </tr>
             {% endfor %}
@@ -96,7 +96,7 @@
                     }, 1000)
                 }
             };
-            xhttp.open("GET", "/delete-rental/" + id, true);
+            xhttp.open("GET", "/booking/delete-yacht/" + id, true);
             xhttp.send();
         })
     })
