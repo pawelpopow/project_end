@@ -6,7 +6,7 @@ import datetime
 
 def dashboard(request):
     if request.session.get('username', None) and request.session.get('type', None) == 'manager':
-        return redirect('manager_dashboard')
+        return redirect('rentel:manager-dashboard')
     if request.session.get('username', None) and request.session.get('type', None) == 'customer':
         username = request.session['username']
         data = User.objects.get(username=username)
@@ -20,7 +20,7 @@ def dashboard(request):
 
 def details(request, user, booking_on):
     if not request.session.get('username', None):
-        return redirect('manager_login')
+        return redirect('manager-login')
     if request.session.get('username', None) and request.session.get('type', None) == 'customer':
         return redirect('customer:user-dashboard')
     try:

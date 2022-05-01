@@ -113,3 +113,4 @@ def delete_yacht(request, id):
         return HttpResponse("You have deleted the rental successfully")
     else:
         return HttpResponse("Invalid Request")
+

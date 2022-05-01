@@ -18,7 +18,7 @@
                 <form class="col s12" method="POST" action="/rentel/next/" enctype="multipart/form-data">{% csrf_token %}
                     <div class="row">
                         <div class="input-field col s12">
-                            <label for="first_name">Rental</label>
+                            <label for="first_name">Name Yacht</label>
                             <input placeholder="Enter Rental" id="first_name" type="text" name="rental">
                         </div>
                     </div>
@@ -44,9 +44,9 @@
                     <div class="row">
                         <div class="file-field input-field col s12">
                             <div class="btn red lighten-2">
-                                <span><i
-                                        class="material-icons left black-text text-lighten-1">image</i> Yacht Image</span>
-                                <input type="file" name="room_image">
+                                <span>
+                                    <i class="material-icons left black-text text-lighten-1">image</i> Yacht Image</span>
+                                    <input type="file" name="yacht_image">
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">

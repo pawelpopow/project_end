@@ -31,7 +31,7 @@ def add_rental(request):
     else:
         name_yacht = request.POST['name_yacht']
         price = request.POST['price']
-        rental_image = request.FILES.get('rental_image', None)
+        yacht_image = request.FILES.get('yacht_image', None)
         error = []
         if (len(name_yacht) < 1):
             error.append(1)
@@ -40,13 +40,13 @@ def add_rental(request):
             error.append(1)
             messages.warning(request, "Please enter price")
         if (not len(error)):
-            manager = request.session['username']
-            manager = User.objects.get(username=manager)
-            rental = Rental(name_yacht=name_yacht, price=price, rental_image=rental_image,
-                            manager=manager)
+            owner = request.session['username']
+            owner = User.objects.get(username=owner)
+            rental = Rental(name_yacht=name_yacht, price=price, yacht_image=yacht_image,
+                            owner=owner)
             rental.save()
             messages.info(request, "Rental Added Successfully")
-            return redirect('rental:dashboard1')
+            return redirect('customer:user-dashboard')
         else:
             return redirect('rentel:add-rental')
 
@@ -54,28 +54,29 @@ def add_rental(request):
 def update_rental(request, name_yacht):
     if not request.session.get('username', None):
         return redirect('login:manager_login')
-    if request.session.get('username', None) and request.session.get('type', None) == 'User':
-        return redirect('user_dashboard')
+    if request.session.get('username', None) and request.session.get('type', None) == 'user':
+        return redirect('customer:user-dashboard')
     rental = Rental.objects.get(id=name_yacht)
     if request.method == "GET":
-        return render(request, "manager_dash/edit-rental.html", {"name_yacht": name_yacht})
+        return render(request, "manager_dash/edit-rental.html", {"rental": rental})
     else:
+        name_yacht = request.POST['name_yacht']
         price = request.POST['price']
-        no_of_days_advance = request.POST['no_of_days_advance']
         error = []
+        if (len(name_yacht) < 1):
+            error.append(1)
+            messages.warning(request, "Enter the name of the yacht")
         if (len(price) <= 2):
             error.append(1)
             messages.warning(request, "Please enter correct price")
-        if (len(no_of_days_advance) < 1):
-            error.append(1)
-            messages.warning(request, "Please add valid no of days a user can book rental in advance.")
+
         if (not len(error)):
-            manager = request.session['username']
-            manager = User.objects.get(username=manager)
-            User.price = price
-            User.no_of_days_advance = no_of_days_advance
-            User.save()
+            owner = request.session['username']
+            owner = User.objects.get(username=owner)
+            rental.name_yacht = name_yacht
+            rental.price = price
+            rental.save()
             messages.info(request, "Rental Data Updated Successfully")
-            return redirect('rentel:dashboard')
+            return redirect('customer:user-dashboard')
         else:
             return redirect('rentel:update-rental' + rental.name_yacht, {"rental": rental})

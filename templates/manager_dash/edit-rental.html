@@ -19,15 +19,15 @@
                 <form class="col s12" method="POST" action="/rentel/next/">{% csrf_token %}
                     <div class="row">
                         <div class="input-field col s12">
-                            <label for="price">Price</label>
-                            <input type="text" name="price" id="price" value="{{rental.price}}">
+                            <label for="name_yacht">Name Yacht</label>
+                            <input type="text" name="name_yacht" id="name_yacht"
+                                   value="{{rental.name_yacht}}">
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <label for="no_of_days_advance">No of days in advance</label>
-                            <input type="text" name="no_of_days_advance" id="no_of_days_advance"
-                                   value="{{rental.no_of_days_advance}}">
+                            <label for="price">Price</label>
+                            <input type="text" name="price" id="price" value="{{rental.price}}">
                         </div>
                     </div>
                     <div class="center">
