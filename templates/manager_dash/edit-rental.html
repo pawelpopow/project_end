@@ -1,0 +1,41 @@
+{% extends 'base/base.html'%}
+{% block content%}
+<div class="row">
+    <div class="col l8 offset-l2 m10 offset-m1 s12">
+        <div class="card-panel">
+            <h4>Updating the Data for rental No: {{rental.rental_no}}</h4>
+            {% if messages %}
+            {% for messsage in messages %}
+            {% if messsage.tags == 'info' %}
+            <div class='chip green white-text'>{{messsage}}</div>
+            {% endif %}
+            {% if messsage.tags == 'warning' %}
+            <div class='chip red white-text'>{{messsage}}</div>
+            {% endif %}
+            <br>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <form class="col s12" method="POST" action="/rentel/next/">{% csrf_token %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="name_yacht">Name Yacht</label>
+                            <input type="text" name="name_yacht" id="name_yacht"
+                                   value="{{rental.name_yacht}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="price">Price</label>
+                            <input type="text" name="price" id="price" value="{{rental.price}}">
+                        </div>
+                    </div>
+                    <div class="center">
+                        <input type="submit" class="btn green btn-large" value="Update Rental">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

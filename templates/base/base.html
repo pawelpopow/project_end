@@ -1,0 +1,123 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cookie&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js'></script>
+</head>
+<body>
+<style>
+    .dropdown-content {
+        top: 53px !important;
+        width: 190px !important;
+    }
+</style>
+<body>
+<nav>
+    <div class="nav-wrapper container">
+        <img src="{% static 'img/Soul-Sail_100.png' %}" alt="Logo" height="60" weight="60">
+        <a href="/rentel/next/" class="brand-logo center" style="font-family: 'Cookie';font-size:2rem">
+            <i class="material-icons" style="font-size:2rem">yacht</i>Rental</a>
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/customer/news/">Home</a></li>
+            <li><a href="/booking/contact-us">Contact Us</a></li>
+            {% if not request.session.username %}
+            <li><a class="dropdown-button" href="#!" data-activates='dropdown1'>Login/Register<i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+            {% else %}
+            <li><a class="dropdown-button" href="#!" data-activates='dropdown2'>Account
+                <i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<ul id="slide-out" class="side-nav">
+
+    <li><a href="/customer/news/">Home</a></li>
+    <li><a href="/booking/contact-us/">Contact Us</a></li>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li style="margin-left:18px">
+                <a class="collapsible-header">Account<i class="material-icons right">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        {% if not request.session.username %}
+                        <li><a href="" class="blue-text"><i
+                                class="material-icons left red-text text-lighten-2">person</i>User</a></li>
+                        <li class="divider" tabindex="-1"></li>
+                        {% else %}
+                        {% if request.session.type == 'customer' %}
+                        <li><a href=""><i
+                                class="material-icons left red-text text-lighten-2">dashboard</i> Dashboard</a></li>
+                        {% endif %}
+                        <li><a href="/login/logout"><i class="material-icons left red-text text-lighten-2">exit_to_app</i>
+                            Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+<ul id='dropdown1' class='dropdown-content'>
+    <li><a href="/login/user" class="blue-text"><i class="material-icons left red-text text-lighten-2">person</i>
+        User</a></li>
+    <li class="divider" tabindex="-1"></li>
+</ul>
+<ul id='dropdown2' class='dropdown-content'>
+    {% if request.session.type == 'customer' %}
+    <li><a href="/login/user"> <i class="material-icons left red-text text-lighten-2">dashboard</i>Dashboard</a>
+    </li>
+    {% endif %}
+    <li><a href="/login/logout"> <i class="material-icons left red-text text-lighten-2">exit_to_app</i>Logout</a></li>
+</ul>
+{% block content %}
+
+{%endblock %}
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text" style="font-family: 'Cookie';">Rental</h5>
+                <p class="grey-text text-lighten-4">Get your rental booked in seconds with amazing offers.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text" style="font-family:'Times New Roman'">Important Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="/customer/news/">Home</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/booking/contact-us">Contact Us</a></li>
+                    {% if not request.session.username %}
+                    {% if request.session.type == 'customer' %}
+                    <li><a class="grey-text text-lighten-3" href="/login/user">User</a></li>
+                    {% endif %}
+                    {% else %}
+                    <li><a class="grey-text text-lighten-3" href="/login/logout">Logout</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2022 All right reserved
+        </div>
+    </div>
+</footer>
+
+<script>
+    $(".button-collapse").sideNav();
+    $('.dropdown-button').dropdown({
+            hover: true
+        }
+    );
+</script>
+</body>
+</html>

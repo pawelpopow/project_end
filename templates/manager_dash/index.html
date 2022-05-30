@@ -1,0 +1,104 @@
+{% extends 'base/base.html'%}
+{% block content%}
+<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Shadows+Into+Light&display=swap" rel="stylesheet">
+
+<div class="row">
+    <div class="center" style="margin-top:2%">
+        {% if messages %}
+        {% for messsage in messages %}
+        {% if messsage.tags == 'info' %}
+        <div class='chip green white-text'>{{messsage}}</div>
+        {% endif %}
+        {% if messsage.tags == 'warning' %}
+        <div class='chip red white-text'>{{messsage}}</div>
+        {% endif %}
+        <br>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col offset-l1 l4 offset-m1 m5 s6">
+        <div class="card-panel center">
+            <h5 style="font-family: 'Shadows Into Light', cursive;" class='blue-text'>Occupied Rental Status</h5>
+            <h3 style="font-family: 'Fredoka One', cursive;">
+                {{booked}}
+            </h3>
+        </div>
+    </div>
+    <div class="col offset-l1 l4 m5 s6">
+        <div class="card-panel center">
+            <h5 style="font-family: 'Shadows Into Light', cursive;" class='blue-text'>Total Rental to manage</h5>
+            <h3 style="font-family: 'Fredoka One', cursive;">
+                {{rental_data.count}}
+            </h3>
+        </div>
+    </div>
+    <div class="col l8 offset-l2 m10 offset-m1 s12">
+        <div class="center">
+            <a class="btn green lighten-2" href="/rentel/new/">Add Rental</a>
+        </div>
+        <h3 style="font-family: 'Fredoka One', cursive;" class="brown-text">Rental Status</h3>
+        <div id="message">
+        </div>
+        {% if data1 %}
+        <table class="highlight bordered responsive-table">
+            <thead class="red lighten-4">
+            <tr>
+                <th>Rental</th>
+                <th>Price</th>
+                <th>Customer Name</th>
+                <th>Booked On</th>
+                <th>Booking Data</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rental in data1%}
+            <tr>
+                <td>{{rental.name_yacht}}</td>
+                <td>{{rental.price}}</td>
+                {% with data=rental.booking_set.all.0 %}
+                <td><a href="/login/user">{{data.user.username}}</a></td>
+                <td>{{available_rentals.booked_on}}
+                </th>
+                <td>
+                    {% if rental.is_available%}
+                    Available
+                    {% else %}
+                    {{data.start_day}} to {{data.end_day}}
+                    {% endif %}
+                </td>
+                <td><a class="btn blue" href="/rentel/update/{{rental.id}}">Edit</a></td>
+                <td><a class="btn red cancel-btn" href="/booking/delete-yacht/{{rental.id}}" id="{{rental.id}}">Delete</a></td>
+                {% endwith %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Sorry no rental has been added by you, please add a rental now <a href="/login/user/">Here</a></p>
+        {% endif %}
+    </div>
+</div>
+<script>
+    cancel_btn = document.querySelectorAll(".cancel-btn")
+    cancel_btn.forEach((data) => {
+        data.addEventListener("click", (e) => {
+            e.preventDefault()
+            id = e.target.id
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText)
+                    document.getElementById("message").innerHTML = "<div class='chip green white-text'>" + xhttp.responseText + "</div>";
+                    window.setTimeout(function () {
+                        location.reload()
+                    }, 1000)
+                }
+            };
+            xhttp.open("GET", "/booking/delete-yacht/" + id, true);
+            xhttp.send();
+        })
+    })
+</script>
+{% endblock %}
