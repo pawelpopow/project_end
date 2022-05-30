@@ -1,0 +1,194 @@
+{% extends 'base/base.html' %}
+{%load static %}
+{%block content%}
+
+<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Rye&display=swap" rel="stylesheet">
+
+
+<div class="row">
+    <div class="center">
+        <h4 class="blue-text" style="font-family: 'Pacifico', cursive;margin: 4rem 0 4% 0;font-size:4rem">Looking for a
+            rentel! </h4>
+        <h4 class="blue-text"
+            style="font-family: 'Pacifico', cursive;margin: 0 0 4% 0;line-height: 25%;font-size:2.5rem">We have it ready
+            for you...</h4>
+    </div>
+    <div class="row">
+        <div id="wrapper1" class="col s5 offset-s1 input-field">
+            <label for="start1" class="red-text text-lighten-2" style="font-size:1.4rem;font-family:'Times New Roman'">Start
+                Date</label>
+            <input type="date" id="start1" class="datepicker-start"/>
+        </div>
+        <div id="wrapper2" class="col s5 input-field">
+            <label for="end1" class="red-text text-lighten-2" style="font-size:1.4rem;font-family:'Times New Roman'">End
+                Date</label>
+            <input type="date" id="end1" class="datepicker-end"/>
+        </div>
+        <br>
+        <div class="center">
+            <a class="btn red darken-1" href="/booking/book/"
+               style="padding: 25px;line-height:3px;font-family: 'Rye', cursive;text-transform:capitalize;font-size:0.9rem"
+               id="show_me_rentel">Show me Rentel</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <h3 class="center" style="font-family: 'Gloria Hallelujah', cursive;margin-bottom:7%;margin-top:5%">Rent a yacht
+            with a good price</h3>
+        <div class="col l4 m6 s12">
+            <div class="card">
+                <div class="card-image">
+                    <img src="{% static 'img/Wyspy_Kanaryjskie.jpg' %}" alt="Wyspy">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                       style="font-size:0.8rem">&#x20b9;  2999 zl</a>
+                </div>
+                <div class="card-content">
+                    <span class="card-title brown-text">
+                        Wyspy Kanaryjskie
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="card">
+                <div class="card-image">
+                    <img src="{% static 'img/Włochy.png' %}" alt="Wlochy">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                       style="font-size:0.8rem">&#x20b9; 2990 zl</a>
+                </div>
+                <div class="card-content">
+                    <span class="card-title brown-text">
+                        Włochy
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="card">
+                <div class="card-image">
+                     <img src="{% static 'img/Karaiby.jpg' %}" alt="Karaiby">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                       style="font-size:0.8rem">&#x20b9; 4290 zl</a>
+                </div>
+                <div class="card-content">
+                    <span class="card-title brown-text">
+                       Karaiby
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="card">
+                <div class="card-image">
+                    <img src="{% static 'img/Baleary.jpg' %}" alt="Baleary">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                       style="font-size:0.8rem">&#x20b9; 2899 zl</a>
+                </div>
+                <div class="card-content">
+                    <span class="card-title brown-text">
+                        Baleary
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="card">
+                <div class="card-image">
+                    <img src="{% static 'img/Grecja.jpg' %}" alt="Grecja">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                       style="font-size:0.8rem">&#x20b9; 2990 zl</a>
+                </div>
+                <div class="card-content">
+                    <span class="card-title brown-text">
+                      Grecja
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col l4 m6 s12">
+            <div class="card">
+                <div class="card-image">
+                     <img src="{% static 'img/Chorwacja.jpg' %}" alt="Chorwacja">
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red white-text"
+                       style="font-size:0.8rem">&#x20b9; 2800 zl</a>
+                </div>
+                <div class="card-content">
+                    <span class="card-title brown-text">
+                      Chorwacja
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("input[class*='datepicker-']").pickadate({
+        selectMonths: false,
+        selectYears: 1,
+        format: 'dd/mmm/yyyy',
+        onSet: function (obj) {
+            let thisPicker = $(this)[0].$node;
+
+            let classes = thisPicker.attr("class");
+            if (classes === undefined || classes.length === 0 || classes.indexOf("datepicker-start") < 0) {
+                return;
+            }
+
+            let parent1 = thisPicker.closest("div.input-field");
+            let parent2 = parent1.next("div.input-field");
+            let picker2 = parent2.find(".datepicker-end");
+
+            if (obj.select) {
+                let dt = new Date(obj.select);
+                picker2.pickadate('picker').set('min', dt);
+            }
+            if (obj.hasOwnProperty('clear')) {
+                picker2.pickadate('picker').set('min', false);
+            }
+        }
+    });
+</script>
+<script>
+    const rentel_btn = document.getElementById("show_me_rentel")
+    rentel_btn.addEventListener("click", (e) => {
+        e.preventDefault()
+        startDate = $('.datepicker-start').val();
+        endDate = $('.datepicker-end').val();
+//d = new Date(endDate);    
+        sd = new Date(startDate)
+        td = new Date()
+        if (sd < td || startDate.length == 0 || endDate.length == 0) {
+            alert("Please choose a valid date")
+        } else {
+            var form = document.createElement("form");
+            var element1 = document.createElement("input");
+            var element2 = document.createElement("input");
+            var element3 = document.createElement("input");
+
+            form.method = "POST";
+            form.action = "/booking/book/";
+
+            element1.name = "start_date";
+            element1.type = "text"
+            element1.value = startDate;
+            form.appendChild(element1);
+
+            element2.name = "end_date";
+            element2.type = "text"
+            element2.value = endDate;
+            form.appendChild(element2);
+            element3.value = '{{csrf_token}}';
+            element3.name = "csrfmiddlewaretoken";
+            element3.type = "hidden"
+            form.appendChild(element3);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    })
+</script>
+{% endblock %}
